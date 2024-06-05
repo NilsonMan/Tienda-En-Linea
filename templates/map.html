@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simular Compra y Pago</title>
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='assets/fondo.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+        h1, p {
+            color: white;
+            margin-bottom: 20px;
+        }
+        .product {
+            display: inline-block;
+            margin: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 10px;
+            width: 200px;
+        }
+        .product img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .product h3, .product p {
+            color: white;
+            margin: 5px;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        .button-container form, .button-container a {
+            display: inline-block;
+        }
+        .button-container form input, .button-container a {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #3498db;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            color: white;
+            margin-right: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .button-container form input:hover, .button-container a:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simular Compra y Pago</h1>
+
+    <div class="product">
+        <img src="{{ url_for('static', filename='assets/' + product[4]) }}" alt="{{ product[1] }}">
+        <h3>{{ product[1] }}</h3>
+        <p>{{ product[2] }}</p>
+        <p>{{ product[3] }}</p>
+        <p>Precio: ${{ product[2] }}</p>
+    </div>
+
+    <div class="button-container">
+        <form method="post">
+            <input type="submit" value="Confirmar Compra y Pago">
+        </form>
+        <a href="/client_menu">Cancelar</a>
+    </div>
+</body>
+</html>

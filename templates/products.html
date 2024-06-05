@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Productos</title>
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='assets/fondo.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+        h1, a {
+            margin-bottom: 20px;
+            color: white;
+        }
+        a {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #3498db;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+        a:hover {
+            background-color: #2980b9;
+        }
+        .product {
+            display: inline-block;
+            margin: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 10px;
+            width: 200px;
+        }
+        .product img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .product h3, .product p {
+            color: white;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Productos Disponibles</h1>
+    {% for product in products %}
+        <div class="product">
+            <img src="{{ url_for('static', filename='assets/' + product[4]) }}" alt="{{ product[1] }}">
+            <h3>{{ product[1] }}</h3>
+            <p>Descripción: {{ product[3] }}</p>
+            <p>Precio: ${{ product[2] }}</p>
+        </div>
+    {% endfor %}
+    <a href="/client_menu">Volver al Menú</a>
+    <a href="/logout">Cerrar Sesión</a>
+</body>
+</html>

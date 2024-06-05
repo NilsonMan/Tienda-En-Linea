@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mapa de Seguimiento</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+    <style>
+        #map {
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <script>
+        const clienteLatLng = [20.987654, -89.123456]; // Coordenadas del cliente
+        const startPos = [20.967370, -89.592586]; // Coordenadas iniciales en Yucatán (ejemplo)
+
+        const map = L.map('map').setView(startPos, 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        const marker = L.marker(startPos).addTo(map).bindPopup('Repartidor').openPopup();
+
+        L.Routing.control({
+            waypoints: [
+                L.latLng(startPos),
+                L.latLng(clienteLatLng)
+            ],
+            routeWhileDragging: true
+        }).addTo(map);
+
+        // Simulación del movimiento del repartidor
+        function simulateMovement() {
+            let step = 0;
+            const numSteps = 100; // Número de pasos de la animación
+            const timePerStep = 50; // Tiempo entre cada paso en milisegundos
+            const deltaLat = (clienteLatLng[0] - marker.getLatLng().lat) / numSteps;
+            const deltaLng = (clienteLatLng[1] - marker.getLatLng().lng) / numSteps;
+
+            function moveMarker() {
+                const newLat = marker.getLatLng().lat + deltaLat;
+                const newLng = marker.getLatLng().lng + deltaLng;
+                marker.setLatLng([newLat, newLng]);
+                if (step < numSteps) {
+                    step++;
+                    setTimeout(moveMarker, timePerStep);
+                }
+            }
+
+            moveMarker();
+        }
+
+        window.onload = simulateMovement;
+    </script>
+</body>
+</html>
+

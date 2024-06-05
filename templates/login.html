@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='assets/fondo.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+        h1, form {
+            margin-bottom: 20px;
+            color: rgb(9, 45, 107);
+        }
+        form {
+            display: inline-block;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        label, input, button {
+            display: block;
+            margin: 10px 0;
+            color: black; /* Color de texto ajustado */
+        }
+        input[type="text"], input[type="password"] {
+            width: 200px;
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Iniciar Sesión</h1>
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+    <form action="/login" method="post">
+        <label for="username">Usuario:</label>
+        <input type="text" name="username" required><br>
+        <label for="password">Contraseña:</label>
+        <input type="password" name="password" required><br>
+        <button type="submit">Iniciar Sesión</button>
+    </form>
+    <br>
+    <a href="/register" style="color: white;">Registrarse</a>
+</body>
+</html>

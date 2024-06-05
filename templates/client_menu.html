@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Menú Cliente</title>
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='assets/fondo.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 80px; /* Aumentamos el padding-top para dejar espacio para el título */
+            margin: 0; /* Eliminamos el margen por defecto del body */
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px 0;
+            z-index: 1000; /* Aseguramos que la barra de navegación esté por encima del contenido */
+        }
+        .navbar a {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #3498db;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            margin: 0 5px; /* Añadimos un margen entre los botones */
+        }
+        .navbar a:hover {
+            background-color: #2980b9;
+        }
+        .content {
+            padding-top: 60px; /* Ajustamos el padding-top para que el contenido no quede debajo de la barra de navegación */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        .product {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 10px;
+            width: 200px;
+        }
+        .product img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .product h3, .product p {
+            color: white;
+            margin: 5px;
+        }
+        .product form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .product button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            color: rgb(23, 18, 18);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .product button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/products">Ver Productos</a>
+        <a href="/logout">Cerrar Sesión</a>
+    </div>
+
+    <div class="content">
+        <!-- Aquí va el contenido de productos -->
+        {% for product in products %}
+        <div class="product">
+            <img src="{{ url_for('static', filename='assets/' + product[4]) }}" alt="{{ product[1] }}">
+            <h3>{{ product[1] }}</h3>
+            <p>{{ product[2] }} €</p>
+            <p>{{ product[3] }}</p>
+            <form action="/make_order" method="post">
+                <input type="hidden" name="product_id" value="{{ product[0] }}">
+                <button type="submit">Pedir Producto</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
